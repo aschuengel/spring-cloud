@@ -1,0 +1,27 @@
+version: '3.5'
+
+services:
+  eureka:
+    build:
+      context: eureka
+    ports:
+    - '8761:8761'
+  user-service:
+    build:
+      context: user-service
+    environment:
+      EUREKA_CLIENT_SERVICE_URL_DEFAULT_ZONE: 'http://eureka:8761/eureka/'
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
+    depends_on:
+      - eureka
+  app-service:
+    build:
+      context: app-service
+    environment:
+      EUREKA_CLIENT_SERVICE_URL_DEFAULT_ZONE: 'http://eureka:8761/eureka/'
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
+    depends_on:
+      - eureka
+      - user-service
+    ports:
+    - '8080:8080'

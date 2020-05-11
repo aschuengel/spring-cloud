@@ -1,0 +1,5 @@
+rootProject.name = 'spring-cloud'
+include 'user-service'
+include 'user-model'
+include 'eureka'
+include 'app-service'
